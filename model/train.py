@@ -96,6 +96,8 @@ def _plots(y_test, y_pred, names, importances, class_counts):
 def train(n_samples=C.N_SAMPLES, n_estimators=C.RF_PARAMS["n_estimators"], cv_folds=C.CV_FOLDS,
           make_plots=True, seed=C.SEED, verbose=True) -> dict:
     log = print if verbose else (lambda *a, **k: None)
+    for folder in (C.RAW_DATA_PATH.parent, C.PROC_DATA_PATH.parent, C.ARTIFACT_DIR, C.ASSETS_DIR):
+        folder.mkdir(parents=True, exist_ok=True)   # a fresh git checkout (Render, CI, Docker) has none of these
     log(f"[1/5] Generating {n_samples} synthetic patients …")
     raw = generate_dataset(n_samples, seed)
     C.RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)

@@ -54,3 +54,18 @@ class TestFeatureEngineering:
     def test_missing_values_do_not_crash(self):
         from model.train import engineer_features
         assert engineer_features(self.df[self.df.isna().any(axis=1)]).shape[0] > 0
+
+
+def test_training_works_from_a_fresh_checkout(tmp_path, monkeypatch):
+    """Regression: Render/CI/Docker start with NO data/, assets/ or artifacts/ folders — training must create them."""
+    from model.training import config as C
+    monkeypatch.setattr(C, "RAW_DATA_PATH", tmp_path / "data" / "raw" / "triage_dataset.csv")
+    monkeypatch.setattr(C, "PROC_DATA_PATH", tmp_path / "data" / "processed" / "triage_processed.csv")
+    monkeypatch.setattr(C, "ARTIFACT_DIR", tmp_path / "model" / "artifacts")
+    monkeypatch.setattr(C, "ASSETS_DIR", tmp_path / "assets")
+    from model.train import train
+    metrics = train(300, 10, 2, make_plots=False, verbose=False)
+    assert metrics["accuracy"] > 0.5
+    assert (tmp_path / "data" / "processed" / "triage_processed.csv").exists()
+    assert (tmp_path / "model" / "artifacts" / "triage_model.pkl").exists()
+    assert (tmp_path / "assets" / "metrics.json").exists()
