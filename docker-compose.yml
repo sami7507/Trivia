@@ -1,0 +1,37 @@
+# One command to run everything:   docker compose up --build
+# App → http://localhost:8501     API docs → http://localhost:8000/docs
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    env_file:
+      - path: .env          # optional — compose works without it
+        required: false
+    environment:
+      TRIAVIA_DB_PATH: /app/database/data/triavia.db
+      FRONTEND_URL: http://localhost:8501
+      BACKEND_PUBLIC_URL: http://localhost:8000
+      CORS_ORIGINS: http://localhost:8501
+      OTP_DEV_ECHO: ${OTP_DEV_ECHO:-true}      # LOCAL DEMO: show SMS code on screen
+      SECRET_KEY: ${SECRET_KEY:-local-dev-only-change-me-please-0123456789}
+    ports:
+      - "8000:8000"
+    volumes:
+      - triavia-db:/app/database/data
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    environment:
+      BACKEND_URL: http://backend:8000               # server-to-server (inside Docker)
+      BACKEND_PUBLIC_URL: http://localhost:8000      # what your browser uses (Google sign-in link)
+    ports:
+      - "8501:8501"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  triavia-db:

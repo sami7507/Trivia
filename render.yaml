@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: triavia-api
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r backend/requirements.txt && python model/train.py"
+    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: SECRET_KEY
+        generateValue: true               # signs login sessions
+      - key: AUTH_REQUIRED
+        value: "true"
+      - key: ALLOW_GUEST
+        value: "true"
+      - key: CORS_ORIGINS
+        value: "https://YOUR-APP.streamlit.app"
+      - key: FRONTEND_URL
+        value: "https://YOUR-APP.streamlit.app"
+      - key: BACKEND_PUBLIC_URL
+        value: "https://triavia-api.onrender.com"
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "60"
+      # Optional — fill in the Render dashboard (sync: false = not stored in git)
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      # Persistence: add a PostgreSQL database (Render, Neon, Supabase …) and paste its connection string.
+      # Without it Triavia uses SQLite, which is wiped on every redeploy on Render's free tier.
+      - key: DATABASE_URL
+        sync: false
+      - key: SMS_PROVIDER
+        value: "console"
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_FROM
+        sync: false

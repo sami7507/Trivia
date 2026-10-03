@@ -1,0 +1,26 @@
+# Run Triavia with PostgreSQL instead of SQLite:
+#   docker compose -f docker-compose.yml -f docker-compose.postgres.yml up --build
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: triavia
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-triavia-local-only}
+      POSTGRES_DB: triavia
+    volumes:
+      - triavia-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U triavia -d triavia"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    environment:
+      DATABASE_URL: postgresql://triavia:${POSTGRES_PASSWORD:-triavia-local-only}@db:5432/triavia
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  triavia-pg:

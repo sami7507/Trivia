@@ -1,0 +1,16 @@
+.git
+.github
+venv
+.venv
+__pycache__
+*.pyc
+.env
+.pytest_cache
+database/data/*.db
+model/artifacts/*.pkl
+data/raw/*.csv
+data/processed/*
+notebooks
+tests
+*.md
+!README.md

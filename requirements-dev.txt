@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest==8.2.0
+# notebooks/01_EDA.ipynb
+seaborn==0.13.2
+jupyter==1.0.0
+ipykernel==6.29.4

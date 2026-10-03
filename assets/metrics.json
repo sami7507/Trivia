@@ -1,0 +1,149 @@
+{
+  "accuracy": 0.9317,
+  "weighted_f1": 0.9318,
+  "macro_f1": 0.9382,
+  "roc_auc_ovr": 0.9918,
+  "roc_auc_weighted": 0.9905,
+  "cv_f1_mean": 0.9289,
+  "cv_f1_std": 0.0058,
+  "confusion_matrix": [
+    [
+      403,
+      17,
+      0,
+      0
+    ],
+    [
+      19,
+      324,
+      17,
+      0
+    ],
+    [
+      0,
+      24,
+      276,
+      0
+    ],
+    [
+      0,
+      0,
+      5,
+      115
+    ]
+  ],
+  "classification_report": {
+    "Non-Urgent": {
+      "precision": 0.9549763033175356,
+      "recall": 0.9595238095238096,
+      "f1-score": 0.9572446555819477,
+      "support": 420.0
+    },
+    "Semi-Urgent": {
+      "precision": 0.8876712328767123,
+      "recall": 0.9,
+      "f1-score": 0.8937931034482759,
+      "support": 360.0
+    },
+    "Urgent": {
+      "precision": 0.9261744966442953,
+      "recall": 0.92,
+      "f1-score": 0.9230769230769231,
+      "support": 300.0
+    },
+    "Resuscitation": {
+      "precision": 1.0,
+      "recall": 0.9583333333333334,
+      "f1-score": 0.9787234042553191,
+      "support": 120.0
+    },
+    "accuracy": 0.9316666666666666,
+    "macro avg": {
+      "precision": 0.9422055082096359,
+      "recall": 0.9344642857142857,
+      "f1-score": 0.9382095215906164,
+      "support": 1200.0
+    },
+    "weighted avg": {
+      "precision": 0.9320867001852251,
+      "recall": 0.9316666666666666,
+      "f1-score": 0.9318151316829271,
+      "support": 1200.0
+    }
+  },
+  "feature_importances": [
+    {
+      "feature": "map_mmhg",
+      "importance": 0.12386
+    },
+    {
+      "feature": "respiratory_rate",
+      "importance": 0.10423
+    },
+    {
+      "feature": "pain_scale",
+      "importance": 0.10325
+    },
+    {
+      "feature": "shock_index",
+      "importance": 0.10264
+    },
+    {
+      "feature": "oxygen_saturation",
+      "importance": 0.09683
+    },
+    {
+      "feature": "systolic_bp",
+      "importance": 0.09308
+    },
+    {
+      "feature": "temperature",
+      "importance": 0.08015
+    },
+    {
+      "feature": "diastolic_bp",
+      "importance": 0.05686
+    },
+    {
+      "feature": "heart_rate",
+      "importance": 0.05001
+    },
+    {
+      "feature": "hypoxia_flag",
+      "importance": 0.03735
+    },
+    {
+      "feature": "fever_flag",
+      "importance": 0.02636
+    },
+    {
+      "feature": "consciousness_alert",
+      "importance": 0.02544
+    },
+    {
+      "feature": "tachycardia_flag",
+      "importance": 0.02313
+    },
+    {
+      "feature": "pulse_pressure",
+      "importance": 0.0204
+    },
+    {
+      "feature": "age",
+      "importance": 0.01458
+    }
+  ],
+  "class_distribution": {
+    "Non-Urgent": 2100,
+    "Semi-Urgent": 1800,
+    "Urgent": 1500,
+    "Resuscitation": 600
+  },
+  "model_type": "RandomForestClassifier",
+  "n_estimators": 300,
+  "n_train": 4800,
+  "n_test": 1200,
+  "n_samples": 6000,
+  "data_source": "synthetic",
+  "trained_at": "2026-10-01T03:21:42+00:00"
+}
