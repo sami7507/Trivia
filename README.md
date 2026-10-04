@@ -208,4 +208,4 @@ Tables are created automatically on first start; the same code and the same test
 SHAP (optional, heavier) · persistent sessions · connection pooling · persistent sessions · real-data validation · multilingual UI
 
 ## License
-MIT © 2026 Sami — [sami757007@gmail.com](mailto:sami757007@gmail.com)
+MIT © 2026 Sami — [samikhan75076@gmail.com](mailto:samikhan75076@gmail.com)
